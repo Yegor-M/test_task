@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Active</th>
+      <th scope="col">Department</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <th scope="row"><%= employee.id %></th>
+        <td><%= employee.name %></td>
+        <td><%= employee.active %></td>
+        <td><%= employee.department.name%></td>
+        <td><%= link_to 'Edit', edit_employee_path(employee) %> |
+        <%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="paginate">
+  <%= paginate @employees, window: 10 %>
+</div>

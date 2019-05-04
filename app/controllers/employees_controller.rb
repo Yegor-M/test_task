@@ -4,8 +4,16 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
-    @employees = Employee.all
+    if params[:name]
+      @employee = Employee.where(name: params[:name])
+      @employee = @employee.where(active: params[:active]) if params[:active]
+      @employee = @employee.where(department_id: params[:department_id]) if params[:department_id]
+      # binding.pry
+    else
+      @employee = Employee.all
+    end
   end
+
 
   # GET /employees/1
   # GET /employees/1.json
@@ -42,7 +50,7 @@ class EmployeesController < ApplicationController
   def update
     respond_to do |format|
       if @employee.update(employee_params)
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Employee was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee }
       else
         format.html { render :edit }
