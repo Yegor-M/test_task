@@ -1,5 +1,5 @@
 @import "bootstrap";
-h1,h2,h1,tr,td,p {
+h1,h2,h3,tr,td,p {
   color:	#808080;
 }
 h1 {
@@ -8,10 +8,14 @@ h1 {
 }
 .form {
   width: 30%;
-  color:	#808080;
+  color: #808080;
   font-weight: 200;
   margin:0 auto;
 }
 table {
   margin-top: 0.5em;
+}
+.pagination {
+  display: block;
+  text-align: center;
 }

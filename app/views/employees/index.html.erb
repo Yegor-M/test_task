@@ -5,7 +5,7 @@
 <div class="form">
 <%= form_for(employees_path, method: :get) do %>
   Employee's Name <%= text_field_tag :name, params[:name],{class: "form-control"} %> <br>
-  Employee's Department ID <%= select_tag(:department_id, options_for_select(@departments),{class: "form-control"}) %> <br>
+  Employee's Department Name <%= select_tag(:department_id, options_for_select(@departments),{class: "form-control"}) %> <br>
   Employee's Status: <br>
   <%= radio_button_tag(:active, true) %>
   <%= label_tag(:active, "Acive") %>

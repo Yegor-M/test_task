@@ -10,21 +10,30 @@ class EmployeesController < ApplicationController
     Department.all.each do |department|
       @departments << [department.name, department.id]
     end
-    search_for_employees(params[:name], params[:active], params[:department_id])
+    find_employees(params[:name])
+  end
+
+  def find_employees(name)
+    if name.blank?
+      @employee = Employee.all
+    else
+      search_for_employees(params[:name], params[:active], params[:department_id])
+    end
   end
 
   def search_for_employees(name, active, department_id)
-    if name.nil?
-      @employee = Employee.all
-    else
-      @employee = Employee.where(name: name)
-      @employee = if active
-                    @employee.where(active: true)
-                  else
-                    @employee.where(active: false)
-                  end
-      @employee = @employee.where(department_id: department_id) if department_id
-    end
+    name = name.downcase
+    @employee = Employee.where('lower(name) LIKE?', "#{name}%")
+    @employee = if active
+                  @employee.where(active: active)
+                else
+                  @employee = Employee.all
+                end
+    @employee = if department_id
+                  @employee.where(department_id: department_id)
+                else
+                  @employee = Employee.all
+                end
   end
 
   def show; end

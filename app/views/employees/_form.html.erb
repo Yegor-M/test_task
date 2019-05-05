@@ -1,32 +1,28 @@
 <%= form_with(model: employee, local: true) do |form| %>
   <% if employee.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
-
-      <ul>
       <% employee.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <h3><%= message %></h3>
       <% end %>
-      </ul>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :department_id %>
     <%= form.text_field :department_id %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :active %>
     <%= form.check_box :active %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Save', :class => 'btn btn-primary' %>
   </div>
 <% end %>
