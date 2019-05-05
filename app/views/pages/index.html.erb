@@ -1,3 +1,5 @@
+<h1>Employees</h1>
+<%= link_to 'Search for Employees', employees_path,style: 'text-align: center; display: inherit;'%>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -13,10 +15,11 @@
       <tr>
         <th scope="row"><%= employee.id %></th>
         <td><%= employee.name %></td>
-        <td><%= employee.active %></td>
+        <td><%= "Yes" if employee.active %>
+            <%= "No" unless employee.active %></td>
         <td><%= employee.department.name%></td>
         <td><%= link_to 'Edit', edit_employee_path(employee) %> |
-        <%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%= link_to 'Delete', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

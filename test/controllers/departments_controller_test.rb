@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class DepartmentsControllerTest < ActionDispatch::IntegrationTest
@@ -5,17 +7,17 @@ class DepartmentsControllerTest < ActionDispatch::IntegrationTest
     @department = departments(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get departments_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_department_url
     assert_response :success
   end
 
-  test "should create department" do
+  test 'should create department' do
     assert_difference('Department.count') do
       post departments_url, params: { department: { name: @department.name } }
     end
@@ -23,22 +25,22 @@ class DepartmentsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to department_url(Department.last)
   end
 
-  test "should show department" do
+  test 'should show department' do
     get department_url(@department)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_department_url(@department)
     assert_response :success
   end
 
-  test "should update department" do
+  test 'should update department' do
     patch department_url(@department), params: { department: { name: @department.name } }
     assert_redirected_to department_url(@department)
   end
 
-  test "should destroy department" do
+  test 'should destroy department' do
     assert_difference('Department.count', -1) do
       delete department_url(@department)
     end

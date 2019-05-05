@@ -1,15 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Employees</h1>
+<h1>Search for Employees</h1>
 
+<div class="form">
 <%= form_for(employees_path, method: :get) do %>
-  Employee's Name<%= text_field_tag :name, params[:name] %> <br>
-  Employee's Department ID<%= text_field_tag :department_id,params[:department_id] %> <br>
-  Employee's Status<%= check_box_tag :active, params[:active], true %>
-  <%= submit_tag ('Search'), name: nil %>
+  Employee's Name <%= text_field_tag :name, params[:name],{class: "form-control"} %> <br>
+  Employee's Department ID <%= select_tag(:department_id, options_for_select(@departments),{class: "form-control"}) %> <br>
+  Employee's Status: <br>
+  <%= radio_button_tag(:active, true) %>
+  <%= label_tag(:active, "Acive") %>
+  <%= radio_button_tag(:active, false) %>
+  <%= label_tag(:active, "Busy") %> <br>
+  <%= submit_tag ('Search'), name: nil,class: 'btn btn-primary' %>
+  <%= link_to 'Back',root_path, class: 'btn btn-danger' %>
 <% end %>
+</div>
+<%= link_to 'New Employee', new_employee_path,style: 'text-align: center; display: inherit;' %>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -34,5 +42,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Employee', new_employee_path %>

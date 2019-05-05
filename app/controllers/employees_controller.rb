@@ -1,33 +1,39 @@
+# frozen_string_literal: true
+
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :set_employee, only: %i[show edit update destroy]
 
   # GET /employees
   # GET /employees.json
   def index
-    if params[:name]
-      @employee = Employee.where(name: params[:name])
-      @employee = @employee.where(active: params[:active]) if params[:active]
-      @employee = @employee.where(department_id: params[:department_id]) if params[:department_id]
-      # binding.pry
-    else
+    @departments = []
+    Department.all.each do |department|
+      @departments << [department.name, department.id]
+    end
+    search_for_employees(params[:name], params[:active], params[:department_id])
+  end
+
+  def search_for_employees(name, active, department_id)
+    if name.nil?
       @employee = Employee.all
+    else
+      @employee = Employee.where(name: name)
+      @employee = if active
+                    @employee.where(active: true)
+                  else
+                    @employee.where(active: false)
+                  end
+      @employee = @employee.where(department_id: department_id) if department_id
     end
   end
 
+  def show; end
 
-  # GET /employees/1
-  # GET /employees/1.json
-  def show
-  end
-
-  # GET /employees/new
   def new
     @employee = Employee.new
   end
 
-  # GET /employees/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /employees
   # POST /employees.json
@@ -70,13 +76,12 @@ class EmployeesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_employee
-      @employee = Employee.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def employee_params
-      params.require(:employee).permit(:department_id, :name, :active)
-    end
+  def set_employee
+    @employee = Employee.find(params[:id])
+  end
+
+  def employee_params
+    params.require(:employee).permit(:department_id, :name, :active)
+  end
 end
